@@ -1,0 +1,14 @@
+---
+title: "Whale-0"
+about:
+  template: jolla
+  image: images/profile.jpg
+---
+
+
+![](images/profile_1.jpg){width=250px}
+
+
+This is a Quarto website.
+
+To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
