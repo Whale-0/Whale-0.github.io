@@ -9,6 +9,6 @@ about:
 ![](images/profile_1.jpg){width=250px}
 
 
-This is a Quarto website.
+This is Whale-0.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+Do you love my cat? She is my sweetheart. 
