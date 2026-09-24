@@ -56,7 +56,15 @@ The rendered website is written to the `docs/` directory.
 
 ### 5. View the website locally
 
-After rendering, open `docs/index.html` in a web browser.
+After rendering, the built website is located in the `docs/` directory.
+
+On macOS, from the repository root, run:
+
+``` bash
+open docs/index.html
+```
+
+This will open the homepage in your default web browser.
 
 ## Data Sources
 
