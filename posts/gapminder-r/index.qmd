@@ -1,0 +1,80 @@
+---
+title: "Gapminder Analysis in R"
+author: "Jinyu Gan"
+date: 2026-09-24
+---
+
+### Data
+
+This data used in this post come from the [Gapminder dataset](https://www.gapminder.org/data/).
+
+Gapminder dataset contains country-level information including life expectancy, population, and GDP per capita across multiple years.
+
+```{r}
+#| label: load-packages
+#| message: false
+#| warning: false
+
+library(gapminder)
+library(dplyr)
+library(ggplot2)
+```
+
+### Question
+
+Which continent had the highest average life expectancy in 2002?
+
+### First step
+
+We filter the dataset to keep only observations from 2002.
+
+```{r}
+#| label: Filter the dataset
+
+year_2002 <- gapminder |> 
+  filter(year == 2002)
+
+year_2002
+```
+
+### Second Step
+
+We group the 2002 observations by continent and calculate the average life expectancy for each continent.
+
+```{r}
+#| label: Find out the average life expectancy
+life_exp_2002 <- year_2002 |> 
+  group_by(continent) |> 
+  summarize(
+    mean_life_exp = mean(lifeExp)
+  )
+
+life_exp_2002
+
+```
+
+### Last Step
+
+Finally, we identify the continent with the highest average life expectancy in 2002.
+
+```{r}
+#| label: identify the continent
+continent_ranking <- life_exp_2002 |> 
+  arrange(desc(mean_life_exp))
+
+continent_ranking[1,1]
+```
+
+### Findings
+
+Based on the average life expectancy values in 2002, Oceania had the highest average life expectancy among the continents in the Gapminder dataset.
+
+```{r}
+#| label: fig-life-exp-2002
+#| fig-cap: "Average life expectancy by continent in 2002."
+
+ggplot(life_exp_2002, aes(x = continent, y = mean_life_exp)) +
+  geom_col()
+```
+
+The bar chart also shows that there were clear differences in average life expectancy across continents.

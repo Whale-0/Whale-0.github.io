@@ -4,14 +4,14 @@
     "href": "blog.html",
     "title": "Blog",
     "section": "",
-    "text": "My first weeks in MDS\n\n\n\n\n\n\n\n\nSep 12, 2026\n\n\nWhale-0\n\n\n\n\n\nNo matching items"
+    "text": "Palmer Penguins Analysis in Python\n\n\n\n\n\n\n\n\nSep 24, 2026\n\n\nJinyu Gan\n\n\n\n\n\n\n\n\n\n\n\n\nGapminder Analysis in R\n\n\n\n\n\n\n\n\nSep 24, 2026\n\n\nJinyu Gan\n\n\n\n\n\n\n\n\n\n\n\n\nMy first weeks in MDS\n\n\n\n\n\n\n\n\nSep 12, 2026\n\n\nWhale-0\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Whale-0",
     "section": "",
-    "text": "This is Whale-0.\nDo you love my cat? She is my sweetheart."
+    "text": "This is Whale-0.\nDo you love my cat? She is my sweetheart.\nWe enjoy walking around the neighborhood in the morning.\nShe is okay with cats but sadly she is not okay with real humans."
   },
   {
     "objectID": "posts/first-weeks/index.html",
@@ -19,6 +19,20 @@
     "title": "My first weeks in MDS",
     "section": "",
     "text": "Orientation day on campus.\n\n\nFirst day of orientation felt a bit overwhelming. Having so many MDS-V program students gathered in one hall room made me feel somewhat pressured. However, the second day of orientation was much better.\nWith a smaller group of only about 20 people at the Irving King library, a very peaceful and beautiful setting, giving me the chance to finally get to know my fellow CL students individually.\nAt the end of the event, we received our exclusive CL backpack. It’s a lululemon model I had long admired. Plus, the sandwiches on the second day were tastier than the ones from first day."
+  },
+  {
+    "objectID": "posts/palmerpenguins-python/index.html",
+    "href": "posts/palmerpenguins-python/index.html",
+    "title": "Palmer Penguins Analysis in Python",
+    "section": "",
+    "text": "Data\nThe data used in this post comes from the Palmer Penguins.\nThe dataset contains measurements for penguins from three species observed in Antarctica.\n::: {#cell-Import the packages .cell execution_count=1}\nfrom palmerpenguins import load_penguins\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\npenguins = load_penguins()\npenguins.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n\n\n\n\n:::\n\n\nQuestion\nWhich penguin species has the highest average body mass?\n\n\nFirst step\nWe only need the body_mass_g variable for this analysis, so we remove rows where body mass is missing.\nThis step ensures that missing values do not affect the calculation of average body mass.\n\nclean_data = penguins.dropna(subset=[\"body_mass_g\"])\n\nclean_data.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n5\nAdelie\nTorgersen\n39.3\n20.6\n190.0\n3650.0\nmale\n2007\n\n\n\n\n\n\n\n\n\nSecond Step\nNext, we group the penguins by species and calculate the average body mass for each species.\n\nmean_mass = (\n    clean_data\n    .groupby(\"species\")[\"body_mass_g\"]\n    .mean()\n    .reset_index(name=\"mean_body_mass_g\")\n)\n\nmean_mass\n\n\n\n\n\n\n\n\nspecies\nmean_body_mass_g\n\n\n\n\n0\nAdelie\n3700.662252\n\n\n1\nChinstrap\n3733.088235\n\n\n2\nGentoo\n5076.016260\n\n\n\n\n\n\n\n\n\nThird Step\nWe sort the results from highest to lowest average body mass so that we can identify which species has the largest average body mass.\n\nmean_mass_sorted = mean_mass.sort_values(\n    \"mean_body_mass_g\",\n    ascending=False\n)\n\nmean_mass_sorted\n\n\n\n\n\n\n\n\nspecies\nmean_body_mass_g\n\n\n\n\n2\nGentoo\n5076.016260\n\n\n1\nChinstrap\n3733.088235\n\n\n0\nAdelie\n3700.662252\n\n\n\n\n\n\n\n\n\nLast Step\nFinally, we create a bar chart to compare the average body mass across species.\n\nplt.bar(\n    mean_mass_sorted[\"species\"],\n    mean_mass_sorted[\"mean_body_mass_g\"]\n);\n\nplt.xlabel(\"Species\");\nplt.ylabel(\"Average body mass (g)\");\nplt.show()\n\n\n\n\n\n\n\nFigure 1: Average body mass by penguin species.\n\n\n\n\n\n\n\nFindings\nThe results show that Gentoo penguins have the highest average body mass.\nThe bar chart makes the differences in average body mass between the three penguin species easier to compare visually."
+  },
+  {
+    "objectID": "posts/gapminder-r/index.html",
+    "href": "posts/gapminder-r/index.html",
+    "title": "Gapminder Analysis in R",
+    "section": "",
+    "text": "Data\nThis data used in this post come from the Gapminder dataset.\nGapminder dataset contains country-level information including life expectancy, population, and GDP per capita across multiple years.\n\nlibrary(gapminder)\nlibrary(dplyr)\nlibrary(ggplot2)\n\n\n\nQuestion\nWhich continent had the highest average life expectancy in 2002?\n\n\nFirst step\nWe filter the dataset to keep only observations from 2002.\n\nyear_2002 &lt;- gapminder |&gt; \n  filter(year == 2002)\n\nyear_2002\n\n# A tibble: 142 × 6\n   country     continent  year lifeExp       pop gdpPercap\n   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;\n 1 Afghanistan Asia       2002    42.1  25268405      727.\n 2 Albania     Europe     2002    75.7   3508512     4604.\n 3 Algeria     Africa     2002    71.0  31287142     5288.\n 4 Angola      Africa     2002    41.0  10866106     2773.\n 5 Argentina   Americas   2002    74.3  38331121     8798.\n 6 Australia   Oceania    2002    80.4  19546792    30688.\n 7 Austria     Europe     2002    79.0   8148312    32418.\n 8 Bahrain     Asia       2002    74.8    656397    23404.\n 9 Bangladesh  Asia       2002    62.0 135656790     1136.\n10 Belgium     Europe     2002    78.3  10311970    30486.\n# ℹ 132 more rows\n\n\n\n\nSecond Step\nWe group the 2002 observations by continent and calculate the average life expectancy for each continent.\n\nlife_exp_2002 &lt;- year_2002 |&gt; \n  group_by(continent) |&gt; \n  summarize(\n    mean_life_exp = mean(lifeExp)\n  )\n\nlife_exp_2002\n\n# A tibble: 5 × 2\n  continent mean_life_exp\n  &lt;fct&gt;             &lt;dbl&gt;\n1 Africa             53.3\n2 Americas           72.4\n3 Asia               69.2\n4 Europe             76.7\n5 Oceania            79.7\n\n\n\n\nLast Step\nFinally, we identify the continent with the highest average life expectancy in 2002.\n\ncontinent_ranking &lt;- life_exp_2002 |&gt; \n  arrange(desc(mean_life_exp))\n\ncontinent_ranking[1,1]\n\n# A tibble: 1 × 1\n  continent\n  &lt;fct&gt;    \n1 Oceania  \n\n\n\n\nFindings\nBased on the average life expectancy values in 2002, Oceania had the highest average life expectancy among the continents in the Gapminder dataset.\n\nggplot(life_exp_2002, aes(x = continent, y = mean_life_exp)) +\n  geom_col()\n\n\n\n\n\n\n\nFigure 1: Average life expectancy by continent in 2002.\n\n\n\n\n\nThe bar chart also shows that there were clear differences in average life expectancy across continents."
   },
   {
     "objectID": "about.html",
