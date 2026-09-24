@@ -3,6 +3,7 @@
     "listing": "/blog.html",
     "items": [
       "/posts/palmerpenguins-python/index.html",
+      "/posts/r-python-bonus/index.html",
       "/posts/gapminder-r/index.html",
       "/posts/first-weeks/index.html"
     ]

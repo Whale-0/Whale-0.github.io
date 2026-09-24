@@ -1,0 +1,56 @@
+---
+title: "R and Python Together"
+author: "Whale-0"
+date: 2026-09-24
+---
+
+## Calculate in R
+
+First, we use R to calculate the average life expectancy for each continent in 2002.
+
+```{r}
+#| label: calculate-life-exp
+
+library(gapminder)
+library(dplyr)
+library(reticulate)
+
+life_exp_2002 <- gapminder |>
+  filter(year == 2002) |>
+  group_by(continent) |>
+  summarise(
+    mean_life_exp = mean(lifeExp),
+    .groups = "drop"
+  )
+
+life_exp_2002
+```
+
+## Use the R result in Python
+
+Next, Python reads the object created by R and uses it to create a bar chart.
+
+```{python}
+#| label: fig-r-to-python
+#| fig-cap: "Average life expectancy by continent in 2002, calculated in R and plotted in Python."
+
+import matplotlib.pyplot as plt
+
+life_exp_python = r.life_exp_2002
+
+plt.bar(
+    life_exp_python["continent"],
+    life_exp_python["mean_life_exp"]
+)
+
+plt.xlabel("Continent")
+plt.ylabel("Average life expectancy")
+plt.show()
+```
+
+
+
+
+
+
+

@@ -4,7 +4,7 @@
     "href": "blog.html",
     "title": "Blog",
     "section": "",
-    "text": "Palmer Penguins Analysis in Python\n\n\n\n\n\n\n\n\nSep 24, 2026\n\n\nJinyu Gan\n\n\n\n\n\n\n\n\n\n\n\n\nGapminder Analysis in R\n\n\n\n\n\n\n\n\nSep 24, 2026\n\n\nJinyu Gan\n\n\n\n\n\n\n\n\n\n\n\n\nMy first weeks in MDS\n\n\n\n\n\n\n\n\nSep 12, 2026\n\n\nWhale-0\n\n\n\n\n\nNo matching items"
+    "text": "Palmer Penguins Analysis in Python\n\n\n\n\n\n\n\n\nSep 24, 2026\n\n\nWhale-0\n\n\n\n\n\n\n\n\n\n\n\n\nR and Python Together\n\n\n\n\n\n\n\n\nSep 24, 2026\n\n\nWhale-0\n\n\n\n\n\n\n\n\n\n\n\n\nGapminder Analysis in R\n\n\n\n\n\n\n\n\nSep 24, 2026\n\n\nWhale-0\n\n\n\n\n\n\n\n\n\n\n\n\nMy first weeks in MDS\n\n\n\n\n\n\n\n\nSep 12, 2026\n\n\nWhale-0\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
@@ -61,5 +61,26 @@
     "title": "About",
     "section": "Outside of DS",
     "text": "Outside of DS\nMy daughter, my dearest kitty. She is incredibly wonderful, angle-like girl."
+  },
+  {
+    "objectID": "posts/r-python-bonus/index.html",
+    "href": "posts/r-python-bonus/index.html",
+    "title": "R and Python Together",
+    "section": "",
+    "text": "First, we use R to calculate the average life expectancy for each continent in 2002.\n\nlibrary(gapminder)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(reticulate)\n\nlife_exp_2002 &lt;- gapminder |&gt;\n  filter(year == 2002) |&gt;\n  group_by(continent) |&gt;\n  summarise(\n    mean_life_exp = mean(lifeExp),\n    .groups = \"drop\"\n  )\n\nlife_exp_2002\n\n# A tibble: 5 × 2\n  continent mean_life_exp\n  &lt;fct&gt;             &lt;dbl&gt;\n1 Africa             53.3\n2 Americas           72.4\n3 Asia               69.2\n4 Europe             76.7\n5 Oceania            79.7"
+  },
+  {
+    "objectID": "posts/r-python-bonus/index.html#calculate-in-r",
+    "href": "posts/r-python-bonus/index.html#calculate-in-r",
+    "title": "R and Python Together",
+    "section": "",
+    "text": "First, we use R to calculate the average life expectancy for each continent in 2002.\n\nlibrary(gapminder)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(reticulate)\n\nlife_exp_2002 &lt;- gapminder |&gt;\n  filter(year == 2002) |&gt;\n  group_by(continent) |&gt;\n  summarise(\n    mean_life_exp = mean(lifeExp),\n    .groups = \"drop\"\n  )\n\nlife_exp_2002\n\n# A tibble: 5 × 2\n  continent mean_life_exp\n  &lt;fct&gt;             &lt;dbl&gt;\n1 Africa             53.3\n2 Americas           72.4\n3 Asia               69.2\n4 Europe             76.7\n5 Oceania            79.7"
+  },
+  {
+    "objectID": "posts/r-python-bonus/index.html#use-the-r-result-in-python",
+    "href": "posts/r-python-bonus/index.html#use-the-r-result-in-python",
+    "title": "R and Python Together",
+    "section": "Use the R result in Python",
+    "text": "Use the R result in Python\nNext, Python reads the object created by R and uses it to create a bar chart.\n\nimport matplotlib.pyplot as plt\n\nlife_exp_python = r.life_exp_2002\n\nplt.bar(\n    life_exp_python[\"continent\"],\n    life_exp_python[\"mean_life_exp\"]\n)\n\nplt.xlabel(\"Continent\")\nplt.ylabel(\"Average life expectancy\")\nplt.show()\n\n\n\n\n\n\n\nFigure 1: Average life expectancy by continent in 2002, calculated in R and plotted in Python."
   }
 ]
